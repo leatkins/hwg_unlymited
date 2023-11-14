@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB; 
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +20,10 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    $orders = DB::table('orders')->orderBy('created_at', 'desc')->paginate(20); 
+    return view('dashboard', [
+        'orders' => $orders
+    ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
