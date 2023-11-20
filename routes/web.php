@@ -29,7 +29,7 @@ Route::get('/product-inventory', [ProductController::class, 'getInventory']);
 
 Route::get('/edit-product/{id}', [ProductController::class, 'editProduct']); 
 
-Route::get('/add-product', [ProductControler::class, 'add']); 
+Route::get('/add-product', [ProductController::class, 'add']); 
 
 Route::put('/update-product/{id}', [ProductController::class, 'updateProduct']); 
 
