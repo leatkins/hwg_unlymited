@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     use HasFactory;
+    public const ORDER_STATUS = ['PENDING', 'SHIPPED', 'COMPLETE', 'REFUNDED', 'CANCELED']; 
 }

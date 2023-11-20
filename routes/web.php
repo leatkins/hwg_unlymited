@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\DB; 
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\OrderController; 
+use App\Http\Controllers\ProductController; 
 
 /*
 |--------------------------------------------------------------------------
@@ -19,12 +21,22 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    $orders = DB::table('orders')->orderBy('created_at', 'desc')->paginate(20); 
-    return view('dashboard', [
-        'orders' => $orders
-    ]);
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [OrderController::class, 'getOrders'])->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/viewOrder/{id}', [OrderController::class, 'viewOrder']);
+
+Route::get('/product-inventory', [ProductController::class, 'getInventory']);
+
+Route::get('/edit-product/{id}', [ProductController::class, 'editProduct']); 
+
+Route::get('/add-product', [ProductControler::class, 'add']); 
+
+Route::put('/update-product/{id}', [ProductController::class, 'updateProduct']); 
+
+Route::put('/deactivate-product/{id}', [ProductController::class, 'deactivate']);
+
+Route::put('/updateOrder/{id}', [OrderController::class, 'updateOrder']); 
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

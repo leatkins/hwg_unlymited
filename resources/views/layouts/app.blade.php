@@ -13,18 +13,17 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
     <!-- Scripts -->
-    <link rel="stylesheet" href="resources/app-652e9b8e.css">
-    <link rel="stylesheet" href="{{ asset('public/build/assets/app-652e9b8e.css') }}">
-
+    <link rel="stylesheet" href="{{asset('public/build/assets/app-fb16573e.css')}}">
+    <link rel="stylesheet" href="{{asset('resources/css/app.css')}}" >
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
         name='viewport' />
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
-        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous" />
     <!-- CSS Files -->
-    <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="{{asset('public/build/assets/now-ui-dashboard.min.css')}}" rel="stylesheet" />
+    <link href="{{asset('resources/css/bootstrap.min.css')}}" rel="stylesheet" />
+    <link href="{{asset('resources/css/now-ui-dashboard.css')}}" rel="stylesheet" />
 </head>
 
 <body class="font-sans antialiased">
@@ -41,8 +40,6 @@
         @endif
 
         <!-- Page Content -->
-
-        
         <main>
             {{ $slot }}
         </main>
