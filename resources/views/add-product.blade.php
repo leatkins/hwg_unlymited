@@ -16,7 +16,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
                 <form method="POST" action="/add-new-product" enctype="multipart/form-data">
-                    @method('PUT')
+                    @method('POST')
                     @csrf
                     <div class="mb-3">
                         <label for="name" class="form-label">Product Name</label>
@@ -61,7 +61,7 @@
                     </div>
 
                     <div class="mb-3 text-center">
-                        <button class="btn btn-secondary" > New Product</button>
+                        <button class="btn btn-secondary" type="submit" > Add New Product</button>
 
                     </form>
             

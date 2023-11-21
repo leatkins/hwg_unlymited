@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\OrderController; 
 use App\Http\Controllers\ProductController; 
+use App\Http\Controllers\CustomerController; 
 
 /*
 |--------------------------------------------------------------------------
@@ -29,7 +30,11 @@ Route::get('/product-inventory', [ProductController::class, 'getInventory']);
 
 Route::get('/edit-product/{id}', [ProductController::class, 'editProduct']); 
 
-Route::get('/add-product', [ProductController::class, 'add']); 
+Route::get('/add-product', [ProductController::class, 'add']);
+
+Route::get('/customers', [CustomerController::class, 'customerList']); 
+
+Route::post('/add-new-product', [ProductController::class, 'addNewProduct']);
 
 Route::put('/update-product/{id}', [ProductController::class, 'updateProduct']); 
 

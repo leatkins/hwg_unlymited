@@ -99,6 +99,26 @@ class ProductController extends Controller
         ]); 
     }
 
+    public function addNewProduct(Request $request) {
+        $product = new Product(); 
+        $product->name = $request->name;
+        $product->description = $request->description; 
+        $product->item_number = $request->item_number; 
+        $product->category = $request->category; 
+        $product->inventory_count = $request->inventory_count;
+        $product->price = $request->price; 
+
+        if(!empty($request->file('image_url'))){
+            $path = Storage::disk('local')->put('dbImages', $request->file('image_url'));
+            $product->image_url = $path; 
+        }
+
+        $product->save();
+        return redirect('/edit-product/' . $product->id . '?status=success');
+    }
+
+
+
     public static function getDistinctCategories() {
         return DB::table('products')->select('category')->distinct()->get(); 
     }
