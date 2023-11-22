@@ -2,21 +2,23 @@
     <x-slot name="header">
         <style src="/public/assets/app-652e9b8e.css"></style>
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Customers') }}
+            {{ __('Customer View') }}
         </h2>
     </x-slot>
 
     <div class="py-6">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
+                <h4><strong></strong> {{$customer->first_name}} {{$customer->last_name}}</h4>
+                <a href="mailto:{{$customer->email_address}}">{{$customer->email_address}}</a>
+                <p>{{$customer->phone_number}}</p>
+                <p>{{$customer->address_1}} {{$customer->addres_2}}
+                    <br />
+                    {{$customer->city}}, {{$customer->state}} {{$customer->zip_code}}
+                </p>
 
-                <div class="col-12 d-flex align-items-end flex-column mb-3">
-                    <form action="">
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="Search" name="search" id="search"
-                            value="{{(isset($_GET['search'])) ? $_GET['search'] : ''}}">
-                        </div>
-                    </form>
+                <div class="text-center py-2">
+                    <h4>Order History</h4>
                 </div>
 
                 <table class="w-full">
@@ -25,55 +27,53 @@
                     <tr>
                         <th>&nbsp;</th>
                         <th class="px-3 py-3">
-                            First Name
+                            Order Status
                         </th>
                         <th class="px-3 py-3">
-                            Last Name
+                            Customer
                         </th>
                         <th class="px-3 py-3">
-                            E-Mail Address
+                            Shipping Address
                         </th>
                         <th class="px-3 py-3">
-                            Phone Number
+                            Order Total
                         </th>
                         <th class="px-3 py-3">
-                            Address
+                            Created On (UTC)
                         </th>
                     </tr>
                     </thead>
-                    @foreach ($customers as $customer)
+                    @foreach ($orders as $order)
                         <tr class="border-b border-gray-200 text-sm">
                             <td class="px-3 py02 whitespace-no-wrap">
-                                <a href="/viewCustomer/{{$customer->id}}">
+                                <a href="/viewOrder/{{$order->id}}">
                                     <button class="btn btn-outline-primary">
-                                        <i class="now-ui-icons shopping_basket"> Customer Detail View</i>
+                                        <i class="now-ui-icons shopping_basket"> VIEW ORDER</i>
                                     </button>
                                 </a>
                             </td>
 
                             <td class="px-3 py-2 whitespace-no-wrap text-left">
-                                {{ $customer->first_name }}
+                                {{ $order->status }}
                             </td>
                             <td class="px-3 py-2 whitespace-no-wrap">
-                                {{ $customer->last_name }}
+                                {{ $customer->first_name . ' ' . $customer->last_name }}
                             </td>
                             <td class="px-3 py-2 whitespace-no-wrap">
-                                {{ $customer->email_address }}
-                            </td>
-                            <td class="px-3 py-2 whitespace-no-wrap">
-                                {{ $customer->phone_number }}
-                            </td>
-                            <td class="px-3 py-2 whitespace-no-wrap">
-                                {{$customer->address_1}} {{$customer->address_2}}
+                                {{ $order->address_1 . ' ' . $order->address_2 }}
                                 <br />
-                                {{$customer->city}}, {{$customer->state}} {{$customer->zip_code}}
+                                {{ $order->city . ', ' . $order->state . ' ' . $order->zip_code }}
+                            </td>
+                            <td class="px-3 py-2 whitespace-no-wrap">
+                                {{ '$' . number_format($order->amount, 2) }}
+                            </td>
+                            <td class="px-3 py-2 whitespace-no-wrap">
+                                {{$order->created_at}}
                             </td>
                         </tr>
                     @endforeach
 
                 </table>
-                {{ $customers->links() }}
-
             </div>
         </div>
     </div>

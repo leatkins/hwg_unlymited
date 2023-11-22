@@ -13,7 +13,7 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
     <!-- Scripts -->
-    <link rel="stylesheet" href="{{asset('public/build/assets/app-fb16573e.css')}}">
+    <link rel="stylesheet" href="{{asset('public/assets/app-0ce2a50e.css')}}">
     <link rel="stylesheet" href="{{asset('resources/css/app.css')}}" >
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
         name='viewport' />
@@ -44,7 +44,7 @@
             {{ $slot }}
         </main>
     </div>
-    <script src="{{ asset('public/build/assets/app-63bb58ea.js') }}"></script>
+    <script src="{{ asset('public/assets/app-63bb58ea.js') }}"></script>
 </body>
 
 </html>

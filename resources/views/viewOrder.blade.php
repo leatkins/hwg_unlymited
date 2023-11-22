@@ -3,15 +3,15 @@
     use App\Models\Order;
     use App\Models\Product;
     use App\Http\Controllers\ProductController;
-    
+
 
     $customer = Customer::find($order->customer_id);
-  
+
 @endphp
 
 <x-app-layout>
     <x-slot name="header">
-        <style src="/public/build/assets/app-652e9b8e.css"></style>
+        <style src="/public/assets/app-652e9b8e.css"></style>
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Customer Order') }}
         </h2>
@@ -59,7 +59,7 @@
                         <thead
                             class="border-b border-t border-gray-200 bg-gray-100 text-xs leading-4 font-semibold uppercase tracking-wider text-left">
                             <tr>
-                                
+
                                 <th class="px-3 py-3">
                                     Item #
                                 </th>

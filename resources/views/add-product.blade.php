@@ -6,7 +6,7 @@
 
 <x-app-layout>
     <x-slot name="header">
-        <style src="/public/build/assets/app-652e9b8e.css"></style>
+        <style src="/public/assets/app-652e9b8e.css"></style>
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Add Product') }}
         </h2>
@@ -53,8 +53,8 @@
                         $ <input type="text" id="price" class="form-control" name="price"  />
                     </div>
 
-                    <div class="position-relative py-2 px-4"> 
-                        
+                    <div class="position-relative py-2 px-4">
+
                     <div class="mb-3">
                         <label for="image_url" class="form-label">Product Image</label>
                         <input type="file" id="image_url" class="form-control" name="image_url" />
@@ -64,7 +64,7 @@
                         <button class="btn btn-secondary" type="submit" > Add New Product</button>
 
                     </form>
-            
+
                 <hr />
 
             </div>

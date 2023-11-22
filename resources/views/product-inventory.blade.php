@@ -8,7 +8,7 @@
 
 <x-app-layout>
     <x-slot name="header">
-        <style src="/public/build/assets/app-652e9b8e.css"></style>
+        <style src="/public/assets/app-652e9b8e.css"></style>
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Inventory') }}
         </h2>
@@ -59,7 +59,7 @@
                         <form action="">
                             <div class="input-group mb-3">
                                 <input type="text" class="form-control" placeholder="Search" name="search" id="search"> &nbsp;
-                            </div> 
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -97,11 +97,11 @@
     </script>
 
 <script>
-    let hideMessage =setTimeout(hide, 5000); 
+    let hideMessage =setTimeout(hide, 5000);
 
     function hide() {
-        document.getElementById('statusMessage').style.display =  'none'; 
-        clearTimeout(hidemMessage); 
+        document.getElementById('statusMessage').style.display =  'none';
+        clearTimeout(hidemMessage);
     }
 </script>
 </x-app-layout>

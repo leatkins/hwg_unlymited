@@ -3,9 +3,9 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\OrderController; 
-use App\Http\Controllers\ProductController; 
-use App\Http\Controllers\CustomerController; 
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CustomerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,19 +28,21 @@ Route::get('/viewOrder/{id}', [OrderController::class, 'viewOrder']);
 
 Route::get('/product-inventory', [ProductController::class, 'getInventory']);
 
-Route::get('/edit-product/{id}', [ProductController::class, 'editProduct']); 
+Route::get('/edit-product/{id}', [ProductController::class, 'editProduct']);
 
 Route::get('/add-product', [ProductController::class, 'add']);
 
-Route::get('/customers', [CustomerController::class, 'customerList']); 
+Route::get('/customers', [CustomerController::class, 'customerList']);
+
+Route::get('/viewCustomer/{id}', [CustomerController::class, 'customerView']);
 
 Route::post('/add-new-product', [ProductController::class, 'addNewProduct']);
 
-Route::put('/update-product/{id}', [ProductController::class, 'updateProduct']); 
+Route::put('/update-product/{id}', [ProductController::class, 'updateProduct']);
 
 Route::put('/deactivate-product/{id}', [ProductController::class, 'deactivate']);
 
-Route::put('/updateOrder/{id}', [OrderController::class, 'updateOrder']); 
+Route::put('/updateOrder/{id}', [OrderController::class, 'updateOrder']);
 
 
 Route::middleware('auth')->group(function () {

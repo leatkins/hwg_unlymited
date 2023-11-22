@@ -6,7 +6,7 @@
 
 <x-app-layout>
     <x-slot name="header">
-        <style src="/public/build/assets/app-652e9b8e.css"></style>
+        <style src="/public/assets/app-652e9b8e.css"></style>
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Edit Product') }}
         </h2>
@@ -69,7 +69,7 @@
                         $ <input type="text" id="price" class="form-control" name="price" value="{{number_format($product->price, 2)}}" />
                     </div>
 
-                    <div class="position-relative py-2 px-4"> 
+                    <div class="position-relative py-2 px-4">
                         <p>Current Image</p>
                         <img src="{{ asset('storage/app/' . $product->image_url) }}" width=100px alt="Current Image" />
 
@@ -93,11 +93,11 @@
         </div>
     </div>
     <script>
-        let hideMessage =setTimeout(hide, 5000); 
+        let hideMessage =setTimeout(hide, 5000);
 
         function hide() {
-            document.getElementById('statusMessage').style.display =  'none'; 
-            clearTimeout(hidemMessage); 
+            document.getElementById('statusMessage').style.display =  'none';
+            clearTimeout(hidemMessage);
         }
     </script>
 </x-app-layout>

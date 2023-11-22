@@ -2,12 +2,12 @@
     use App\Models\Customer;
     use App\Models\Order;
     use App\Models\Product;
-    use App\Http\Controllers\ProductController; 
+    use App\Http\Controllers\ProductController;
 @endphp
 
 <x-app-layout>
     <x-slot name="header">
-        <style src="/public/build/assets/app-652e9b8e.css"></style>
+        <style src="/public/assets/app-652e9b8e.css"></style>
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Dashboard') }}
         </h2>
@@ -80,7 +80,7 @@
                 </div>
 
 
-             
+
 
             </div>
         </div>
@@ -139,7 +139,7 @@
                                 @endphp
                                 <tr class="border-b border-gray-200 text-sm">
                                     <td class="px-3 py02 whitespace-no-wrap">
-                                        <a href="/viewOrder/{{$order->id}}"> 
+                                        <a href="/viewOrder/{{$order->id}}">
                                             <button class="btn btn-outline-primary">
                                                 <i class="now-ui-icons shopping_basket"> VIEW ORDER</i>
                                             </button>
