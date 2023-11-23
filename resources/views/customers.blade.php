@@ -46,7 +46,7 @@
                             <td class="px-3 py02 whitespace-no-wrap">
                                 <a href="/viewCustomer/{{$customer->id}}">
                                     <button class="btn btn-outline-primary">
-                                        <i class="now-ui-icons shopping_basket"> Customer Detail View</i>
+                                        <i class="now-ui-icons users_single-02"> Customer Details</i>
                                     </button>
                                 </a>
                             </td>
