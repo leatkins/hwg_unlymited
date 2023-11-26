@@ -122,4 +122,34 @@ class ProductController extends Controller
     public static function getDistinctCategories() {
         return DB::table('products')->select('category')->distinct()->get(); 
     }
+
+    public function productPage(Request $request) {
+        $products = DB::table('products')->where('active', '=', 1)->orderBy('name', 'asc')->paginate(15);  
+   
+        if (isset($request->categorySelection)) {
+            $products = DB::table('products')
+                ->where('active', '=', 1)
+                ->where('category', '=', $request->categorySelection)
+                ->orderBy('name', 'asc')->paginate(45); 
+        }
+
+        if(isset($request->categorySelection) && $request->categorySelection === 'all') {
+            $products = DB::table('products')->where('active', '=', 1)->orderBy('name', 'asc')->paginate(15);  
+   
+        }
+
+        if (isset($request->search)) {
+            $products = DB::table('products')
+                ->where('active', '=', 1)
+                ->where('name', 'LIKE', '%' . $request->search . '%')
+                ->orderBy('name', 'asc')->paginate(25);
+        }
+        
+
+
+        return view('customer-products', [
+            'categories' => self::getDistinctCategories(),
+            'products' => $products
+        ]);
+    }
 }

@@ -29,12 +29,12 @@
                     @else
                         <x-nav-link href="/customers">Customers</x-nav-link>
                     @endif
-
+{{-- 
                     @if ($_SERVER['REQUEST_URI'] === '/reports')
                         <x-nav-link href="/reports" active>Reports</x-nav-link>
                     @else
                         <x-nav-link href="/reports">Reports</x-nav-link>
-                    @endif
+                    @endif --}}
                 </div>
             </div>
 

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB; 
 use App\Models\Order;
+use App\Models\Product; 
 
 class OrderController extends Controller
 {
@@ -58,7 +60,6 @@ class OrderController extends Controller
     }
 
 
-
     private function ordersTotal() {
         $orders =  DB::table('orders')->whereIn('status', ['PENDING', 'SHIPPED', 'COMPLETE'])->get(); 
         $total = 0.00; 
@@ -67,6 +68,38 @@ class OrderController extends Controller
             $total = $total + $order->amount; 
         }
         return number_format($total, 2); 
+    }
+
+    public function addLineItem(int $id, Request $request) 
+    {
+       $request->session()->push('lineItems', [
+            'product_id' => $id, 
+            'quantity' => $request->quantity
+        ]);
+        
+        return redirect('/products?item-added=true'); 
+    }
+
+    public function viewCart()
+    {
+        return view ('customer-cart'); 
+    }
+
+    public function clearCart(Request $request)
+    {
+        $request->session()->flush(); 
+        return view ('customer-cart'); 
+    }
+
+    public function removeItem(int $id, Request $request):RedirectResponse 
+    {
+        $lineItems = $request->session()->get('lineItems'); 
+
+        unset($lineItems[$id]); 
+        $request->session()->put('lineItems', array_values($lineItems)); 
+
+        return redirect('/cart'); 
+
     }
 
 

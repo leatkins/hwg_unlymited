@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CustomerController;
@@ -19,8 +18,18 @@ use App\Http\Controllers\CustomerController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('web-start');
 });
+
+Route::get('/products', [ProductController::class, 'productPage']);
+
+Route::get('/cart', [OrderController::class, 'viewCart']); 
+
+Route::put('/clearCart', [OrderController::class, 'clearCart']);
+
+Route::put('/removeItem/{id}', [OrderController::class, 'removeItem']); 
+
+Route::put('/addLineItem/{id}', [OrderController::class, 'addLineItem']);
 
 Route::get('/dashboard', [OrderController::class, 'getOrders'])->middleware(['auth', 'verified'])->name('dashboard');
 
