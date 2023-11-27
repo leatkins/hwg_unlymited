@@ -7,6 +7,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB; 
 use App\Models\Order;
 use App\Models\Product; 
+use App\Models\Customer;
+use App\Models\OrderLineItem;
 
 class OrderController extends Controller
 {
@@ -99,6 +101,67 @@ class OrderController extends Controller
         $request->session()->put('lineItems', array_values($lineItems)); 
 
         return redirect('/cart'); 
+
+    }
+
+    public function completePayment(Request $request)
+    {
+        $orderData = json_decode($request->orderData); 
+        
+        $existingCustomer = Customer::where('email_address', $orderData->payer->email_address); 
+
+        if(empty($existingCustomer->id)) { 
+            $customer = new Customer(); 
+            $customer->first_name = $orderData->payer->name->given_name; 
+            $customer->last_name = $orderData->payer->name->surname; 
+            $customer->email_address  = $orderData->payer->email_address;
+            $customer->phone_number = '';
+            $customer->address_1 = $orderData->purchase_units[0]->shipping->address->address_line_1;
+            $customer->address_2 = $orderData->purchase_units[0]->shipping->address->address_line_2 ?? ''; 
+            $customer->city = $orderData->purchase_units[0]->shipping->address->admin_area_2; 
+            $customer->state = $orderData->purchase_units[0]->shipping->address->admin_area_1; 
+            $customer->zip_code = $orderData->purchase_units[0]->shipping->address->postal_code;
+            $customer->save();
+        } else { 
+            $customer=Customer::find($existingCustomer->id);
+            $customer->first_name = $orderData->payer->name->given_name; 
+            $customer->last_name = $orderData->payer->name->surname; 
+            $customer->email_address  = $orderData->payer->email_address;
+            $customer->phone_number = '';
+            $customer->address_1 = $orderData->purchase_units[0]->shipping->address->address_line_1;
+            $customer->address_2 = $orderData->purchase_units[0]->shipping->address->address_line_2 ?? ''; 
+            $customer->city = $orderData->purchase_units[0]->shipping->address->admin_area_2; 
+            $customer->state = $orderData->purchase_units[0]->shipping->address->admin_area_1; 
+            $customer->zip_code = $orderData->purchase_units[0]->shipping->address->postal_code;
+            $customer->save();
+        }
+        $order = new Order(); 
+        $order->customer_id = $customer->id; 
+        $order->address_1 = $orderData->purchase_units[0]->shipping->address->address_line_1;
+        $order->address_2 = $orderData->purchase_units[0]->shipping->address->address_line_2 ?? '';
+        $order->state = $orderData->purchase_units[0]->shipping->address->admin_area_1;
+        $order->city = $orderData->purchase_units[0]->shipping->address->admin_area_2;
+        $order->zip_code = $orderData->purchase_units[0]->shipping->address->postal_code;
+        $order->status = 'PENDING';
+        $order->confirmation_number = $orderData->id;  
+        $order->amount = number_format(($orderData->purchase_units[0]->amount->value / 100), 2); 
+        $order->save();
+
+        $lineItems = $request->session()->get('lineItems'); 
+
+        foreach ($lineItems as $item) {
+            $orderLineItem = new OrderLineItem(); 
+            $orderLineItem->order_id = $order->id; 
+            $orderLineItem->product_id = $item['product_id'];
+            $orderLineItem->quantity = $item['quantity']; 
+            
+            $product = Product::find($item['product_id']); 
+
+            $orderLineItem->product_price = $product->price; 
+            $orderLineItem->line_price = $product->price * $item['quantity'];
+            $orderLineItem->save();
+        }
+
 
     }
 

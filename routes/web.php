@@ -29,6 +29,8 @@ Route::put('/clearCart', [OrderController::class, 'clearCart']);
 
 Route::put('/removeItem/{id}', [OrderController::class, 'removeItem']); 
 
+Route::put('/completePayment', [OrderController::class, 'completePayment']);
+
 Route::put('/addLineItem/{id}', [OrderController::class, 'addLineItem']);
 
 Route::get('/dashboard', [OrderController::class, 'getOrders'])->middleware(['auth', 'verified'])->name('dashboard');
