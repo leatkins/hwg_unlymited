@@ -1,24 +1,22 @@
 @php
     use App\Models\Customer;
     use App\Models\Order;
-
     $customer = Customer::find($order->customer_id);
 @endphp
 
-<x-app-layout>
-    <x-slot name="header">
-        <style src="/public/assets/app-652e9b8e.css"></style>
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Customer Order') }}
-        </h2>
-    </x-slot>
+<x-web-header />
+<x-web-styles />
 
+<div class="header-bar"></div>
+
+<main>
     <div class="py-6">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-
                 <div class="row">
-
+                    <div class="text-center">
+                        <h2><strong>THANK YOU!</strong></h2>
+                    </div>
                     <div class="p-6 text-gray-900 col-lg-8" style="padding: 50px">
                         <p><strong>Customer: </strong>{{ $customer->first_name . ' ' . $customer->last_name }}</p>
                         <p><strong>Phone #: </strong>{{$customer->phone_number}} </p>
@@ -30,21 +28,9 @@
                     </div>
 
                     <div class="p-6 col-lg-4">
-                        <p><strong>Created at: </strong>{{$order->created_at}}</p><br />
-                        <form action="/updateOrder/{{$order->id}}" method="POST">
-                            @method('PUT')
-                            @csrf
-                        <label for="orderStatus" class="form-label">ORDER STATUS</label>
-                        <select class="form-select form-select-lg mb-3" name="orderStatus" id="orderStatus"
-                            {{ $order->status === 'COMPLETE' ? 'disabled' : '' }}>
-                            @foreach (Order::ORDER_STATUS as $status)
-                                <option value="{{ $status }}"
-                                    {{ $status === $order->status ? 'selected' : '' }}>{{ $status }}</option>
-                            @endforeach
-                        </select>
-                        <button type="submit" class="btn" onclick="alert('Order Status Updated!')">Update</button>
-
-                    </form>
+                        <p><strong>Created at: </strong>{{$order->created_at}}</p>
+                        <p><strong>Confirmation: </strong>{{$order->confirmation_number}}</p>
+                        <br />
                     </div>
 
                 </div>
@@ -54,27 +40,27 @@
                     <table style="width:100%">
                         <thead
                             class="border-b border-t border-gray-200 bg-gray-100 text-xs leading-4 font-semibold uppercase tracking-wider text-left">
-                            <tr>
+                        <tr>
 
-                                <th class="px-3 py-3">
-                                    Item #
-                                </th>
-                                <th class="px-3 py-3">
-                                    Name
-                                </th>
-                                <th class="px-3 py-3">
-                                    Description
-                                </th>
-                                <th class="px-3 py-3">
-                                    Product Price
-                                </th>
-                                <th class="px-3 py-3">
-                                    Quantiy
-                                </th>
-                                <th>
-                                    Line Price
-                                </th>
-                            </tr>
+                            <th class="px-3 py-3">
+                                Item #
+                            </th>
+                            <th class="px-3 py-3">
+                                Name
+                            </th>
+                            <th class="px-3 py-3">
+                                Description
+                            </th>
+                            <th class="px-3 py-3">
+                                Product Price
+                            </th>
+                            <th class="px-3 py-3">
+                                Quantiy
+                            </th>
+                            <th>
+                                Line Price
+                            </th>
+                        </tr>
                         </thead>
                         @foreach($lineItems as $lineItem)
                             <tr>
@@ -96,5 +82,10 @@
             </div>
         </div>
     </div>
+</main>
 
-</x-app-layout>
+
+</main>
+<x-disclaimer />
+<x-web-footer />
+

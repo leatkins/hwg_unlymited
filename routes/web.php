@@ -23,11 +23,13 @@ Route::get('/', function () {
 
 Route::get('/products', [ProductController::class, 'productPage']);
 
-Route::get('/cart', [OrderController::class, 'viewCart']); 
+Route::get('/cart', [OrderController::class, 'viewCart']);
+
+Route::get('/orderComplete/{id}', [OrderController::class, 'orderComplete']);
 
 Route::put('/clearCart', [OrderController::class, 'clearCart']);
 
-Route::put('/removeItem/{id}', [OrderController::class, 'removeItem']); 
+Route::put('/removeItem/{id}', [OrderController::class, 'removeItem']);
 
 Route::put('/completePayment', [OrderController::class, 'completePayment']);
 

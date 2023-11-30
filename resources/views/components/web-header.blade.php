@@ -10,7 +10,7 @@
 	<meta content="" name="keywords">
 
 	<!-- Favicons -->
-	<link href="assets/img/favicon.png" rel="icon">
+	<link href="{{asset('assets/img/favicon.png')}}" rel="icon">
 	<link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
 	<!-- Google Fonts -->
@@ -18,19 +18,19 @@
 		  rel="stylesheet">
 
 	<!-- Vendor CSS Files -->
-	<link href="assets/vendor/animate.css/animate.min.css" rel="stylesheet">
-	<link href="assets/vendor/aos/aos.css" rel="stylesheet">
-	<link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-	<link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-	<link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-	<link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-	<link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+	<link href="{{asset('assets/vendor/animate.css/animate.min.css')}}" rel="stylesheet">
+	<link href="{{asset('assets/vendor/aos/aos.css')}}" rel="stylesheet">
+	<link href="{{asset('assets/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+	<link href="{{asset('assets/vendor/bootstrap-icons/bootstrap-icons.css')}}" rel="stylesheet">
+	<link href="{{asset('assets/vendor/boxicons/css/boxicons.min.css')}}" rel="stylesheet">
+	<link href="{{asset('assets/vendor/glightbox/css/glightbox.min.css')}}" rel="stylesheet">
+	<link href="{{asset('assets/vendor/remixicon/remixicon.css')}}" rel="stylesheet">
+	<link href="{{asset('assets/vendor/swiper/swiper-bundle.min.css')}}" rel="stylesheet">
 	<link rel="stylesheet" href="{{asset('public/assets/app-0ce2a50e.css')}}">
 
 	<!-- Template Main CSS File -->
-	<link href="assets/css/style.css" rel="stylesheet">
-	<link href="customStyles.css" rel="stylesheet" type="text/css">
+	<link href="{{asset('assets/css/style.css')}}" rel="stylesheet">
+	<link href="{{asset('customStyles.css')}}" rel="stylesheet" type="text/css">
 	<script src="https://kit.fontawesome.com/77e9e84f23.js" crossorigin="anonymous"></script>
 
 	<!-- =======================================================
@@ -48,7 +48,7 @@
 	<div class="container d-flex align-items-center justify-content-between">
 
 		<div class="logo">
-			<h1><a href="index.php"><img src="assets/web_img/hwg_logo101721.png" class="img-fluid"
+			<h1><a href="./"><img src="{{asset('assets/web_img/hwg_logo101721.png')}}" class="img-fluid"
 										 alt="Company Logo"></a></h1>
 			<!-- Uncomment below if you prefer to use an image logo -->
 			<!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
@@ -56,8 +56,8 @@
 
 		<nav id="navbar" class="navbar">
 			<ul>
-				<li><a class="nav-link scrollto" href="./#hero">Home</a></li>
-				<li><a class="nav-link scrollto" href="./#about">About</a></li>
+				<li><a class="nav-link scrollto" href="/">Home</a></li>
+				<li><a class="nav-link scrollto" href="/#about">About</a></li>
 
 				<li class="dropdown"><a href="./products"><span>Products</span> <i class="bi bi-chevron-down"></i></a>
 					<ul>
@@ -67,7 +67,7 @@
 
 					</ul>
 				</li>
-			
+
 				<li>
 					<a class="nav-link scrollto" href="./cart">
 						<i class="fa-sharp fa-solid fa-cart-shopping"></i> &nbsp;
@@ -75,9 +75,9 @@
 							<span style="background-color:#fa3e3e; border-radius: 10em; color: white; padding:5px"><strong>{{count(session()->get('lineItems'))}}</strong></span>
 						@endif
 					</a>
-					
+
 				</li>
-				
+
 				<li><a class="nav-link scrollto" href="./#contact">Contact</a></li>
 				<li><a class="nav-link scrollto" href="/login">Login</a></li>
 			</ul>

@@ -1,6 +1,3 @@
-<?php
-session_start();
-?>
 <x-web-header />
 
 <!-- ======= Hero Section ======= -->
@@ -122,7 +119,7 @@ session_start();
 		</div>
 	</section>
 
-	
+
 
 
 	<!-- ======= Portfolio Section ======= -->

@@ -1,1 +1,1 @@
-<img src={{asset('public/build/assets/hwg_logo.png')}} {{$attributes}} />
+<img src={{asset('assets/img/hwg_logo.jpeg')}} {{$attributes}} />

@@ -31,7 +31,7 @@
     <div class="container products-start">
         <h3 class="font-semibold text-xl text-gray-800 leading-tight"><u>Products</u></h3>
         <div class="category-start">
-        
+
             <table width="100%">
                 <tr>
                     <td>
@@ -51,7 +51,7 @@
                     <td style="padding-left: 20%">
                         <form>
                             <label for="categorySelection"><strong>Search Products<strong></label>
-                            <input type="text" class="form-control" name="search"  placeholder="Search" 
+                            <input type="text" class="form-control" name="search"  placeholder="Search"
                                 value="{{(isset($_GET['search'])) ? $_GET['search'] : ''}}"/>
                             <button type="submit" class="hidden-button">Search</button>
                         </form>
@@ -60,7 +60,7 @@
             </table>
         </div>
 
-        <div class="container grid"> 
+        <div class="container grid">
             @foreach ($products as $product)
             <div class="card">
                 <table width="100%">
@@ -78,7 +78,7 @@
                             <p>QTY <input type="number" min="1" max="{{$product->inventory_count}}" name="quantity"  value="1" /></p>
                             <h3 class="font-semibold text-xl text-gray-800 leading-tight">${{number_format($product->price, 2)}}</h3>
                             <br />
-                           
+
                                 <button class="btn btn-warning" type="submit">Add to Cart</button>
                             </form>
                         </td>
@@ -132,18 +132,19 @@
 
 	</section>
     <script>
-        let clearMessage = setTimeout(hideMessage, 5000); 
+        let clearMessage = setTimeout(hideMessage, 5000);
 
         function hideMessage() {
-            document.getElementById("status-message").style.display = 'none'; 
+            document.getElementById("status-message").style.display = 'none';
         }
 
         function changeCategory() {
-            document.getElementById("categoryChange").click(); 
+            document.getElementById("categoryChange").click();
         }
     </script>
+</main>
 <x-disclaimer />
 <x-web-footer />
 
-</main>
+
 
