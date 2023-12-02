@@ -167,18 +167,27 @@ class OrderController extends Controller
             $orderLineItem->save();
         }
         $request->session()->flush();
-        $mailOrder = new MailOrderController($order->id);
-        $mailOrder->sendMail();
         return redirect('/orderComplete/' . $order->id);
 
     }
 
     public function orderComplete($id)
     {
+        $order = Order::find($id);
+        
+        if ($order->web_viewed) {
+            abort(419);
+        }
+        
         $lineItems = DB::table('order_line_items')
             ->join('products', 'order_line_items.product_id', '=', 'products.id')
             ->where('order_line_items.order_id', '=', $id)
             ->get();
+
+        
+
+        $mailOrder = new MailOrderController($id);
+        $mailOrder->sendMail();
         return view('web-thankyou', [
             'lineItems' => $lineItems,
             'order' => Order::find($id)

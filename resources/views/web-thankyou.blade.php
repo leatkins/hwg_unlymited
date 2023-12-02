@@ -28,9 +28,11 @@
                     </div>
 
                     <div class="p-6 col-lg-4">
-                        <p><strong>Created at: </strong>{{$order->created_at}}</p>
+                        <p><strong>Created at: </strong>{{$order->created_at}} UTC</p>
                         <p><strong>Confirmation: </strong>{{$order->confirmation_number}}</p>
+
                         <br />
+                        <button class="btn btn-outline-warning" onclick="window.print()"><i class="fa-solid fa-print"></i> Print Page</button> 
                     </div>
 
                 </div>
@@ -84,7 +86,12 @@
     </div>
 </main>
 
+@php
 
+    $viewedOrder = Order::find($order->id); 
+    $viewedOrder->web_viewed = 1; 
+    $viewedOrder->save(); 
+@endphp 
 </main>
 <x-disclaimer />
 <x-web-footer />
