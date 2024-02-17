@@ -1,11 +1,14 @@
 <x-web-header />
-<script src="https://www.paypal.com/sdk/js?client-id=AUmSN7a1kL3_OxZ3-1jkvope1uPNgRDvAn1_4EGOvgAYjDXdmLcMEHpP1K12lOG6dFvMufFNGwa8LYnM&currency=USD"></script>
+<script
+    src="https://www.paypal.com/sdk/js?client-id=AUmSN7a1kL3_OxZ3-1jkvope1uPNgRDvAn1_4EGOvgAYjDXdmLcMEHpP1K12lOG6dFvMufFNGwa8LYnM&currency=USD">
+</script>
+<script src="https://sandbox.kit.cash.app/v1/pay.js"></script>
 <x-web-styles />
 <div class="header-bar"></div>
 
 @php
-use App\Models\Product;
-$lineItems = session()->get('lineItems'); 
+    use App\Models\Product;
+    $lineItems = session()->get('lineItems');
     $subTotal = 0;
     $handlingFee = 5.99;
     $taxRate = 0.081;
@@ -24,7 +27,7 @@ $lineItems = session()->get('lineItems');
                 </div>
 
                 <div class="container-sm text-center">
-                    <img src="assets/web_img/coverAd_HWG.png" width="35%" alt="Promotional Image"/>
+                    <img src="assets/web_img/coverAd_HWG.png" width="35%" alt="Promotional Image" />
                 </div>
                 <div class="py-6 text-right">
                     <a href="./products">
@@ -35,74 +38,111 @@ $lineItems = session()->get('lineItems');
                         @csrf
                         <button class="btn btn-lg btn-outline-danger" name="clearCart"> Clear Cart</button>
                     </form>
-                  
+
                 </div>
                 <hr>
-                
+
                 @if (!empty($lineItems))
 
-                <div class="py-6 container">
-                    @foreach($lineItems as $key => $value)
-                    @php
-                        $product = Product::find($value['product_id']);
-                        $linePrice = $value['quantity'] * $product->price;
-                        $subTotal = $linePrice + $subTotal; 
-                    @endphp
-                    <div class="card my-6 p-6">
-                        <table width="100%">
-                            <tr>
-                                <form action="/removeItem/{{$key}}" method="POST" > 
-                                    @method('PUT')
-                                    @csrf
-                                    <td><button class="btn btn-outline-danger"><i class="fa-solid fa-trash-can"></i></button> <br />QTY: {{$value['quantity']}}</td>
-                                </form> 
-                                <td><img src="{{asset('storage/app/'. $product->image_url)}}" alt="Product Image" width="75px" /></td>
-                                <td>
-                                    <strong>{{$product->name}}</strong>
-                                    <p>{{$product->description}}</p>
-                                    <p>${{number_format($product->price, 2)}}</p>
-                                </td>
-                                <td>
-                                    <strong>${{number_format($linePrice, 2)}}</strong>
-                                </td>
-                            </tr>
-                        </table>
+                    <div class="py-6 container">
+                        @foreach ($lineItems as $key => $value)
+                            @php
+                                $product = Product::find($value['product_id']);
+                                $linePrice = $value['quantity'] * $product->price;
+                                $subTotal = $linePrice + $subTotal;
+                            @endphp
+                            <div class="card my-6 p-6">
+                                <table width="100%">
+                                    <tr>
+                                        <form action="/removeItem/{{ $key }}" method="POST">
+                                            @method('PUT')
+                                            @csrf
+                                            <td><button class="btn btn-outline-danger"><i
+                                                        class="fa-solid fa-trash-can"></i></button> <br />QTY:
+                                                {{ $value['quantity'] }}</td>
+                                        </form>
+                                        <td><img src="{{ asset('storage/app/' . $product->image_url) }}"
+                                                alt="Product Image" width="75px" /></td>
+                                        <td>
+                                            <strong>{{ $product->name }}</strong>
+                                            <p>{{ $product->description }}</p>
+                                            <p>${{ number_format($product->price, 2) }}</p>
+                                        </td>
+                                        <td>
+                                            <strong>${{ number_format($linePrice, 2) }}</strong>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        @endforeach
+
                     </div>
-                    @endforeach
-    
-                </div>
-                
                 @else
                     <h1 class="text-center py-6"><strong>Cart is empty</strong></h1>
                 @endif
 
-                <div class="py-6" >
-                <hr />
+                <div class="py-6">
+                    <hr />
                 </div>
-                @if(!empty($lineItems))
-                <div class="text-right"> 
-                    <p>Sub-Total: &nbsp; <strong>${{number_format($subTotal, 2)}}</strong></p>
-                    <p>Shipping &amp; Handling: &nbsp; ${{number_format($handlingFee, 2)}}</p>
-                    @php
-                        $tax = $subTotal * $taxRate;
-                        $totalCost = $tax + $handlingFee + $subTotal;
-                        $payPalTotal = str_replace('.', '', number_format($totalCost, 2))
-                    @endphp
-                    <p>Tax: &nbsp; ${{number_format($tax, 2)}}
-                    <p>Amout Due: &nbsp; <strong>${{number_format($totalCost, 2)}}</strong></p>
-                    <input type="number" id="payPalGrandTotal" value="{{$payPalTotal}}" style="display:none" />
-                </div> 
+                @if (!empty($lineItems))
+                    <div class="text-right">
+                        <p>Sub-Total: &nbsp; <strong>${{ number_format($subTotal, 2) }}</strong></p>
+                        <p>Shipping &amp; Handling: &nbsp; ${{ number_format($handlingFee, 2) }}</p>
+                        @php
+                            $tax = $subTotal * $taxRate;
+                            $totalCost = $tax + $handlingFee + $subTotal;
+                            $payPalTotal = str_replace('.', '', number_format($totalCost, 2));
+                        @endphp
+                        <p>Tax: &nbsp; ${{ number_format($tax, 2) }}
+                        <p>Amout Due: &nbsp; <strong>${{ number_format($totalCost, 2) }}</strong></p>
+                        <input type="number" id="payPalGrandTotal" value="{{ $payPalTotal }}" style="display:none" />
+                    </div>
+                    <hr />
 
-                <div style="display:none">
-                    <form action="/completePayment" method="POST"> 
-                        @method('PUT')
-                        @csrf
-                        <textarea name="orderData" id="pay-pal-info"></textarea>
-                        <button type="submit" id="submitOrder">Submit</button>
-                    </form>
-                </div>
-                <div class="container py-6" style="margin-top: 20px; margin-left:15%; margin-right:15%; padding-right:50px">
-                    <div  id="paypal-button-container"></div>
+
+                    <div class="row py-6" id="methodSelection">
+                        <div class="text-center">
+                            <h2><strong>Payment Method</strong></h2> <br />
+                        </div>
+                        <div class="col-6">
+                            <div class="card text-center py-6 px-6">
+                                <a href="?payment=paypal#methodSelection" <button class="btn btn-outline-success"
+                                    name="payment" value="paypal" type="submit">
+                                    <img src="https://1000logos.net/wp-content/uploads/2021/04/Paypal-logo-500x281.png"
+                                        class="center-img" alt="Paypal Logo" />
+                                    </button>
+                                </a>
+
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="card py-6 px-6">
+                                <a href="?payment=cashapp#methodSelection">
+                                    <button class="btn btn-outline-success" name="payment" value="cashapp"
+                                        type="submit">
+                                        <img src="https://1000logos.net/wp-content/uploads/2021/01/Cash-App-logo-700x394.png"
+                                            class="center-img" alt="CashApp Logo" />
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div style="display:none">
+                        <form action="/completePayment" method="POST">
+                            @method('PUT')
+                            @csrf
+                            <textarea name="orderData" id="pay-pal-info"></textarea>
+                            <button type="submit" id="submitOrder">Submit</button>
+                        </form>
+                    </div>
+
+                    @if (isset($_GET['payment']) && $_GET['payment'] === 'paypal')
+                        <div class="container py-6"
+                            style="margin-top: 20px; margin-left:15%; margin-right:15%; padding-right:50px">
+                            <div id="paypal-button-container"></div>
+                    @endif
 
                     <script>
                         paypal.Buttons({
@@ -112,7 +152,8 @@ $lineItems = session()->get('lineItems');
                                 return actions.order.create({
                                     purchase_units: [{
                                         amount: {
-                                            value: document.getElementById('payPalGrandTotal').value // Can reference variables or functions. Example: `value: document.getElementById('...').value`
+                                            value: document.getElementById('payPalGrandTotal')
+                                                .value // Can reference variables or functions. Example: `value: document.getElementById('...').value`
                                         }
                                     }]
                                 });
@@ -123,8 +164,8 @@ $lineItems = session()->get('lineItems');
                                 return actions.order.capture().then(function(orderData) {
                                     // Successful capture! For dev/demo purposes:
                                     console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
-                                    document.getElementById('pay-pal-info').value = JSON.stringify(orderData); 
-                                    document.getElementById("submitOrder").click(); 
+                                    document.getElementById('pay-pal-info').value = JSON.stringify(orderData);
+                                    document.getElementById("submitOrder").click();
 
                                     // var transaction = orderData.purchase_units[0].payments.captures[0];
                                     // alert('Transaction '+ transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
@@ -137,15 +178,14 @@ $lineItems = session()->get('lineItems');
                                 });
                             }
                         }).render('#paypal-button-container');
-
                     </script>
-                
 
-                </div>
-                @endif
+
             </div>
+            @endif
+        </div>
         </div>
     </section>
 
-<x-disclaimer />
-<x-web-footer /> 
+    <x-disclaimer />
+    <x-web-footer />
